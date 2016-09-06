@@ -4,7 +4,8 @@ var pg = require('pg');
 var connectionString = process.env.DATABASE_URL;
 pg.defaults.ssl = true;
 
-sharedPgClient
+var sharedPgClient;
+console.log('hello');
 
 pg.connect(dbString, function(err,client){
 
