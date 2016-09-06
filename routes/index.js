@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var pg = require('pg');
 var connectionString = require(path.join(__dirname,'../', '../', 'config'));
-
+pg.defaults.ssl = true;
 /* GET home page. */
 /*router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -17,6 +17,7 @@ router.post('/api/v1/tests', function(req,res) {
 	pg.connect(connectionString, function(err, client, done) {
 		if (err) {
 			done();
+			console.log('test');
 			console.log(err);
 			return res.status(500).json({success: false, data: err});
 		}
