@@ -3,35 +3,21 @@ var router = express.Router();
 var pg = require('pg');
 var connectionString = process.env.DATABASE_URL;
 pg.defaults.ssl = true;
-/* GET home page. */
-/*router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});*/
 
-router.post('/api/v1/tests', function(req,res) {
-	var result;
-	
-	// get http data
-	var data = {text: req.body.text, complete: false};
+sharedPgClient
 
-	pg.connect(connectionString, function(err, client, done) {
-		if (err) {
-			done();
-			console.log('test');
-			console.log(err);
-			return res.status(500).json({success: false, data: err});
-		}
-			// insert into table
-			client.query("INSERT INTO tests(name) values($1)", [data.text]);
+pg.connect(dbString, function(err,client){
 
-			result = client.query("SELECT * FROM tests order by id desc limit 1");
+    if(err){
+        console.error("PG Connection Error")
+    }
 
-			query.on('end', function() {
-				done();
-				return res.json(result);
-			});
-	});
+    console.log("Connected to Postgres");
+    sharedPgClient = client;
+
 });
+
+
 
 router.get('/api/v1/tests', function(req, res) {
 
@@ -63,6 +49,31 @@ router.get('/api/v1/tests', function(req, res) {
 
     });
 
+});
+
+router.post('/api/v1/tests', function(req,res) {
+	var result;
+	
+	// get http data
+	var data = {text: req.body.text, complete: false};
+
+	pg.connect(connectionString, function(err, client, done) {
+		if (err) {
+			done();
+			console.log('test');
+			console.log(err);
+			return res.status(500).json({success: false, data: err});
+		}
+			// insert into table
+			client.query("INSERT INTO tests(name) values($1)", [data.text]);
+
+			result = client.query("SELECT * FROM tests order by id desc limit 1");
+
+			query.on('end', function() {
+				done();
+				return res.json(result);
+			});
+	});
 });
 
 module.exports = router;
