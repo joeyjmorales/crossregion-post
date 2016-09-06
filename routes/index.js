@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
-var connectionString = process.env.DATABASE_URL;
+var connectionString = require(path.join(__dirname, '../', '../', 'config'));
 pg.defaults.ssl = true;
 
 var sharedPgClient;
@@ -16,6 +16,10 @@ pg.connect(dbString, function(err,client){
     console.log("Connected to Postgres");
     sharedPgClient = client;
 
+});
+
+router.get('/', function(req, res, next) {
+  console.log('hello world!');
 });
 
 
