@@ -1,25 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
 var pg = require('pg');
 var connectionString = require(path.join(__dirname, '../', '../', 'config'));
 pg.defaults.ssl = true;
 
-var sharedPgClient;
-console.log('hello');
-
-pg.connect(dbString, function(err,client){
-
-    if(err){
-        console.error("PG Connection Error")
-    }
-
-    console.log("Connected to Postgres");
-    sharedPgClient = client;
-
-});
-
 router.get('/', function(req, res, next) {
-  console.log('hello world!');
+  res.sendFile(path.join(__dirname, '../views', 'index.html'));
 });
 
 
