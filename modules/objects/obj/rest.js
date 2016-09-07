@@ -16,14 +16,16 @@ module.exports = function(envConfig){
         get: {
             spec: {
                 description:      "Search customer onboarding data by keyword",
-                path:             "/api/v1/tests",
+                path:             "/api/v1/tests/{searchString}",
                 method:           "GET",
                 summary:          "Search for customer onboarding info by customer or org name",
                 notes:            "",
                 type:             "object",
                 nickname:         "searchCustomerInfo",
                 produces:         ["object"],
-                parameters:       [],
+                parameters:       [
+                    swg.paramTypes.path("searchString", "Customer org name or keyword", "string")
+                ],
                 responseMessages: [
                     {
                         "code":          200,
@@ -47,7 +49,7 @@ module.exports = function(envConfig){
         post: {
             spec: {
                 description:      "Search customer onboarding data by keyword",
-                path:             "/api/v1/tests/{searchString}",
+                path:             "/api/v1/newTests/{searchString}",
                 method:           "POST",
                 summary:          "Search for customer onboarding info by customer or org name",
                 notes:            "",
