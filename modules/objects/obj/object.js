@@ -35,7 +35,7 @@ object.prototype.get = function(params, callback) {
 };
 
 object.prototype.post = function(params, callback) {
-	sharedPgClient.query('INSERT INTO tests (name) values $1',[params] function(err, result) {
+	sharedPgClient.query('INSERT INTO tests (name) values $1',[params], function(err, result) {
 		if (err) throw err;
 		console.log(result.rows[0]);
 	});
