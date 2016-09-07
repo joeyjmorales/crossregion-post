@@ -1,61 +1,36 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+var express = require("express");
 var bodyParser = require('body-parser');
-
-var routes = require('./server/routes/index');
-//var users = require('./routes/users');
-
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use(express.static(path.join(__dirname, './client', 'public')));
-//app.use('/users', users);
+var config= {
+  port: process.env.PORT || 1111,
+  description: "Your App's REST Backend",
+  title: "Westcost Example API"
+};
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+
+// Initialize REST API Server Backend
+console.log("Initializing REST Server");
+var restServer = require("./modules/restServer.js").create(app, config);
+
+// Set your application route
+console.log("Set Main application Route");
+app.get("/", function(req, res) {
+  res.send('My application is powered by <a href="docs">Matts API</a>!');
 });
 
-// error handlers
+// Add your REST plugins here
+console.log("Initialize CSA Endpoints");
+var routes = require("./modules/routes");
+console.log("routes");
+console.log(routes);
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
+routes.addToRestServer(restServer);
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+// Launch Your Application
+console.log("Launch Application");
+var server = app.listen(config.port, function () {
+  console.log('App running: http://%s:%s', server.address().address, server.address().port);
 });
-
-
-module.exports = app;
