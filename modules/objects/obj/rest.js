@@ -16,7 +16,7 @@ module.exports = function(envConfig){
         get: {
             spec: {
                 description:      "Search customer onboarding data by keyword",
-                path:             "/api/v1/csa/onboarding/{searchString}",
+                path:             "/api/v1/tests/{searchString}",
                 method:           "GET",
                 summary:          "Search for customer onboarding info by customer or org name",
                 notes:            "",
