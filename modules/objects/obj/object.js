@@ -26,7 +26,7 @@ var object = function(params){};
 object.prototype.get = function(params, callback) {
 	sharedPgClient.query('SELECT * FROM accounts', function(err, result) {
 		if (err) throw err;
-		console.log(result.rows[0]);
+		result.send(JSON.stringify(result));
 	});
 };
 
