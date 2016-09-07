@@ -16,8 +16,39 @@ module.exports = function(envConfig){
         get: {
             spec: {
                 description:      "Search customer onboarding data by keyword",
-                path:             "/api/v1/tests/{searchString}",
+                path:             "/api/v1/tests",
                 method:           "GET",
+                summary:          "Search for customer onboarding info by customer or org name",
+                notes:            "",
+                type:             "object",
+                nickname:         "searchCustomerInfo",
+                produces:         ["object"],
+                parameters:       [],
+                responseMessages: [
+                    {
+                        "code":          200,
+                        "message":       "Info Found"
+                    },
+                    {
+                        "code":    400,
+                        "message": "Error in onboarding query"
+                    }
+                ]
+            },
+
+            action: function(req, res){
+                new object({env: envConfig}).get(req.params, function(err, response){
+                    if(err) res.status(400).send({"err": err});
+                    res.send(JSON.stringify(response));
+                });
+            }
+        },
+
+        post: {
+            spec: {
+                description:      "Search customer onboarding data by keyword",
+                path:             "/api/v1/tests/{searchString}",
+                method:           "POST",
                 summary:          "Search for customer onboarding info by customer or org name",
                 notes:            "",
                 type:             "object",
@@ -39,7 +70,7 @@ module.exports = function(envConfig){
             },
 
             action: function(req, res){
-                new object({env: envConfig}).get(req.params, function(err, response){
+                new object({env: envConfig}).post(req.params, function(err, response){
                     if(err) res.status(400).send({"err": err});
                     res.send(JSON.stringify(response));
                 });

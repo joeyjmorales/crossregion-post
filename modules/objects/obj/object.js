@@ -24,9 +24,20 @@ pg.connect(dbString, function(err,client){
 var object = function(params){};
 
 object.prototype.get = function(params, callback) {
-	sharedPgClient.query('SELECT * FROM accounts', function(err, result) {
+	sharedPgClient.query('SELECT * FROM tests', function(err, result) {
 		if (err) throw err;
-		result.send(JSON.stringify(result));
+		for(var i=0;i<result.length;i++){
+			console.log(result.rows[i]);	
+		}
+		callback.send(JSON.stringify(result));
+		
+	});
+};
+
+object.prototype.post = function(params, callback) {
+	sharedPgClient.query('INSERT INTO tests (name) values $1',[params] function(err, result) {
+		if (err) throw err;
+		console.log(result.rows[0]);
 	});
 };
 
