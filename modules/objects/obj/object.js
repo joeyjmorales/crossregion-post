@@ -29,7 +29,7 @@ object.prototype.get = function(params, callback) {
 		for(var i=0;i<result.length;i++){
 			console.log(result.rows[i]);	
 		}
-		callback.send(JSON.stringify(result));
+		//callback.send(JSON.stringify(result));
 		
 	});
 };
