@@ -41,7 +41,7 @@ object.prototype.post = function(params, callback) {
 
     /* Temporarily removed DB stuff to add plumbing for the post API call.  */
 
-    sharedPgClient.query('INSERT INTO tests (name) values (\'$1\')',[params.inputString], function(err, result) {
+    sharedPgClient.query('INSERT INTO tests (name) values ($1)',[params.inputString], function(err, result) {
         console.log("Post Params: ");
         console.log(params.inputString);
         var err = undefined;
