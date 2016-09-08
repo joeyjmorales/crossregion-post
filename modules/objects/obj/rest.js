@@ -16,7 +16,7 @@ module.exports = function(envConfig){
         get: {
             spec: {
                 description:      "Search customer onboarding data by keyword",
-                path:             "/api/v1/tests/{searchString}",
+                path:             "/api/v1/test/{searchString}",
                 method:           "GET",
                 summary:          "Search for customer onboarding info by customer or org name",
                 notes:            "",
@@ -48,16 +48,16 @@ module.exports = function(envConfig){
 
         post: {
             spec: {
-                description:      "Search customer onboarding data by keyword",
-                path:             "/api/v1/newTests/{searchString}",
+                description:      "Create test object",
+                path:             "/api/v1/test/{inputString}",
                 method:           "POST",
-                summary:          "Search for customer onboarding info by customer or org name",
+                summary:          "Create test object",
                 notes:            "",
                 type:             "object",
-                nickname:         "searchCustomerInfo",
+                nickname:         "createTestObj",
                 produces:         ["object"],
                 parameters:       [
-                    swg.paramTypes.path("searchString", "Customer org name or keyword", "string")
+                    swg.paramTypes.path("inputString", "Customer org name or keyword", "string")
                 ],
                 responseMessages: [
                     {

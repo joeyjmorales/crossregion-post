@@ -24,21 +24,35 @@ pg.connect(dbString, function(err,client){
 var object = function(params){};
 
 object.prototype.get = function(params, callback) {
-	sharedPgClient.query('SELECT * FROM tests', function(err, result) {
-		if (err) throw err;
-		for(var i=0;i<result.length;i++){
-			console.log(result.rows[i]);	
-		}
-		//callback.send(JSON.stringify(result));
-		
-	});
+
+    sharedPgClient.query('SELECT * FROM tests', function(err, result) {
+
+        //if (err) throw err;
+
+        for(var i=0;i<result.length;i++){
+            console.log(result.rows[i]);
+        }
+
+        callback(err, JSON.stringify(result));
+
+    });
 };
 
 object.prototype.post = function(params, callback) {
-	sharedPgClient.query('INSERT INTO tests (name) values (\'$1\')',[params], function(err, result) {
-		if (err) throw err;
-		console.log(result.rows[0]);
-	});
+
+    /* Temporarily removed DB stuff to add plumbing for the post API call.  */
+
+    /*sharedPgClient.query('INSERT INTO tests (name) values (\'$1\')',[params], function(err, result) {
+        if (err) throw err;
+        console.log(result.rows[0]);
+    });*/
+
+    console.log("Post Params: ");
+    console.log(params);
+    var err = undefined;
+    callback(err, params);
+
+
 };
 
 module.exports = object;
