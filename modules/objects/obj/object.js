@@ -42,17 +42,12 @@ object.prototype.post = function(params, callback) {
 
     /* Temporarily removed DB stuff to add plumbing for the post API call.  */
 
-    /*sharedPgClient.query('INSERT INTO tests (name) values (\'$1\')',[params], function(err, result) {
-        if (err) throw err;
-        console.log(result.rows[0]);
-    });*/
-
-    console.log("Post Params: ");
-    console.log(params);
-    var err = undefined;
-    callback(err, params);
-
-
+    sharedPgClient.query('INSERT INTO tests (name) values (\'$1\')',[params], function(err, result) {
+        console.log("Post Params: ");
+        console.log(params);
+        var err = undefined;
+        callback(err, params);
+    });
 };
 
 module.exports = object;
