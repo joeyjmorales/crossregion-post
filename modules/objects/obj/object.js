@@ -32,7 +32,6 @@ object.prototype.get = function(params, callback) {
         for(var i=0;i<result.length;i++){
             console.log(result.rows[i]);
         }
-
         callback(err, JSON.stringify(result));
 
     });
@@ -42,9 +41,9 @@ object.prototype.post = function(params, callback) {
 
     /* Temporarily removed DB stuff to add plumbing for the post API call.  */
 
-    sharedPgClient.query('INSERT INTO tests (name) values (\'$1\')',[params], function(err, result) {
+    sharedPgClient.query('INSERT INTO tests (name) values (\'$1\')',[params.input], function(err, result) {
         console.log("Post Params: ");
-        console.log(params);
+        console.log(params.input);
         var err = undefined;
         callback(err, params);
     });
