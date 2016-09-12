@@ -44,7 +44,7 @@ object.prototype.post = function(params, callback) {
 
     //request.get('http://oregon-db.com/api/v1/test/h')
     superagent('http://oregon-db.com/api/v1/test/h', function (error, response, body) {
-      if(err) {
+      if(error) {
         console.log("Error",error);
       }
 
