@@ -43,7 +43,7 @@ object.prototype.post = function(params, callback) {
   /* POST writes to Master DB in West Coast Private Space -a oregon-db  */
 
     //request.get('http://oregon-db.com/api/v1/test/h')
-    superagent('http://oregon-dbherokuapp.com/api/v1/test/h', function (error, response, body) {
+    superagent('http://oregon-db.herokuapp.com/api/v1/test/h', function (error, response, body) {
       if(error) {
         console.log("Error",error);
       }
