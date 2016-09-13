@@ -52,7 +52,8 @@ object.prototype.post = function(params, callback) {
   } else {
     console.log(process.env.IS_LEADER);
     console.log(params.inputString);
-    superagent.post('http://oregon-db.herokuapp.com/api/v1/test/' + params.inputString,params, function (err, response, body) {
+    var posUrl = 'http://oregon-db.herokuapp.com/api/v1/test/' + params.inputString;
+    superagent.post(postUrl,params, function (err, response, body) {
       if(err) {
         console.log("err",err);
       } else {
