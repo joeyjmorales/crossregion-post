@@ -39,9 +39,10 @@ object.prototype.get = function(params, callback) {
 };
 
 object.prototype.post = function(params, callback) {
-
-  if (process.env.IS_LEADER == 'TRUE') {
     console.log(process.env.IS_LEADER);
+    console.log(params.inputString);
+  if (process.env.IS_LEADER == 'TRUE') {
+    console.log("tru",process.env.IS_LEADER);
     console.log(params.inputString);
     sharedPgClient.query('INSERT INTO tests (name) values ($1)',params.inputString, function(err, result) {
         console.log("Post Params: ");
